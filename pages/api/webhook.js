@@ -1,4 +1,4 @@
-import {mongooseConnect} from "@/lib/mongoose";
+import connectDB from "@/lib/mongoose";
 const stripe = require('stripe')(process.env.STRIPE_SK);
 import {buffer} from 'micro';
 import {Order} from "@/models/Order";
@@ -6,7 +6,7 @@ import {Order} from "@/models/Order";
 const endpointSecret = "whsec_634d3142fd2755bd61adaef74ce0504bd2044848c8aac301ffdb56339a0ca78d";
 
 export default async function handler(req,res) {
-  await mongooseConnect();
+  await connectDB();
   const sig = req.headers['stripe-signature'];
 
   let event;

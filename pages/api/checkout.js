@@ -1,4 +1,4 @@
-import {mongooseConnect} from "@/lib/mongoose";
+import connectDB from "@/lib/mongoose";
 import {Product} from "@/models/Product";
 import {Order} from "@/models/Order";
 const stripe = require('stripe')(process.env.STRIPE_SK);
@@ -13,8 +13,8 @@ export default async function handler(req,res) {
     postalCode,streetAddress,country,
     cartProducts,
   } = req.body;
-  await mongooseConnect();
-  const productsIds = cartProducts;
+  await connectDB();
+    const productsIds = cartProducts;
   const uniqueIds = [...new Set(productsIds)];
   const productsInfos = await Product.find({_id:uniqueIds});
 
